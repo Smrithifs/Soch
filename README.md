@@ -1,114 +1,554 @@
-# SOCH: agentic DSA preparation
+# SOCH — Agentic DSA Preparation Platform
 
-## The agents
-| Agent | What it does | What it sees |
+**Think smarter. Practice strategically. Remember what you learn.**
+
+SOCH is an intelligent, multi-agent DSA preparation platform designed to make coding interview preparation more personalized, adaptive, and effective.
+
+Instead of giving every student the same problem list, SOCH understands individual learning goals, tracks problem-solving behavior, identifies knowledge gaps, and continuously adapts the preparation strategy.
+
+Whether a student is learning Data Structures and Algorithms from scratch, preparing for an Online Assessment, or approaching a technical interview, SOCH creates a learning experience around their goals, available time, performance, and retention.
+
+---
+
+## ✨ What makes SOCH different?
+
+Most coding platforms focus on what problem a student should solve.
+
+SOCH focuses on something more important:
+
+**What should this student learn next, why are they struggling, what have they forgotten, and how should their preparation adapt?**
+
+SOCH brings together:
+
+- **Multi-agent intelligence:** Specialized agents collaborate to manage different aspects of a student's preparation.
+- **Personalized learning:** Learning paths adapt to the student's goals, proficiency, deadlines, and daily availability.
+- **Adaptive memory:** A forgetting-curve model identifies when previously learned concepts need reinforcement.
+- **Socratic tutoring:** Students receive contextual guidance based on their actual code and execution results.
+- **Intelligent catch-up:** Missed study days trigger a redesigned plan that prioritizes forgotten concepts.
+- **Real code evaluation:** Java and Python submissions are compiled and executed against actual test cases.
+- **Interview readiness:** Mock interviews evaluate problem-solving, technical reasoning, and communication.
+
+---
+
+## 🤖 Meet the five specialized agents
+
+SOCH uses a multi-agent architecture in which each agent has a clearly defined responsibility. LangGraph coordinates the agent workflow, while n8n supports workflow automation and integrations.
+
+| Agent | Responsibility | What it observes |
 |---|---|---|
-| **Coach** | Writes the daily brief on the dashboard | Your memory curve, today's plan, open mistakes |
-| **Tutor** | Socratic help in the Practice Arena, keeping the chat in context | Your current code, the real compiler and test results, hints used, retention for the topic |
-| **Recall Coach** | Recall Rescue for when you solved it yesterday and can't approach it today. It's a six-step retrieval ladder (Cue, Trigger, State, Transition, Base & order, Rebuild), and the last step only passes after a real Accepted submission | Your answer to the current step, the reference insight, how long you've been away |
-| **Catch-up Planner** | After a gap, picks and orders today's work. Recall comes before new problems, and the plan has to fit your minutes and use only real task ids | Retention per topic, days away, deadline, candidate tasks |
-| **Interviewer** | Grades each mock-interview answer and asks follow-up probes | Your answer, rubric, reference; code correctness comes from your real submission |
+| **Coach Agent** | Generates personalized daily preparation briefs and recommends what to focus on. | Memory retention, daily goals, open mistakes, and pending tasks. |
+| **Tutor Agent** | Provides contextual, Socratic guidance inside the Practice Arena. | Current code, compiler output, test results, hints used, and topic retention. |
+| **Recall Coach Agent** | Helps students reconstruct previously learned solutions through a six-step retrieval process. | Current answer, reference insights, and time since last practice. |
+| **Catch-up Planner Agent** | Reorganizes learning after a break, prioritizing revision before introducing new concepts. | Topics due for revision, days away, deadlines, available time, and candidate tasks. |
+| **Interviewer Agent** | Conducts mock interviews, evaluates responses, and asks relevant follow-up questions. | Student responses, evaluation rubrics, reference solutions, and submission correctness. |
 
-Every run is logged in the **Agent Console**, which shows what each agent observed, what it decided, the model used, and the latency.
+### Agent collaboration
 
-## Forgetting and catch-up
-Each topic follows a forgetting curve, `R = e^(−t/S)`. After a first solve, S = 1.2 days, so retention is about 43% the next day. That's the "I solved DP yesterday and I'm blank today" effect. A strong recall made just as a topic fades grows S the most, while hints or failures shrink it. Use the **time-travel buttons (+1d / +3d / +10d)** in the sidebar to show this live:
-1. Solve House Robber (DP), then press **+1d**. DP drops to 43% (forgotten), the dashboard flags it, and today's plan opens with *Recall Rescue: House Robber*.
-2. Do the Recall Rescue. The editor is cleared, you rebuild the solution from memory, and the real submission closes the loop. DP stability jumps, and a review is scheduled for tomorrow.
-3. Press **+10d**. Memory & Catch-up shows "away 11 days". The **Catch-up Planner** builds a plan, and you can apply it to today and inspect the decision in the Agent Console.
+The agents operate as specialized components within a coordinated workflow rather than independent chatbots.
 
-## Set up the local model (once)
+The platform follows an adaptive cycle:
+
+**Observe → Reason → Retrieve → Plan → Act → Evaluate → Adapt**
+
+Every agent execution is recorded in the Agent Console, providing visibility into the agent's observations, decisions, selected model, and execution latency.
+
+---
+
+## 🧠 The science of remembering DSA
+
+One of SOCH's central features is its adaptive memory system.
+
+Learning a problem once does not guarantee that a student can solve it again independently.
+
+SOCH models topic retention using the forgetting curve:
+
+\[
+R=e^{-t/S}
+\]
+
+Where:
+
+- \(R\) = estimated retention.
+- \(t\) = time elapsed since learning.
+- \(S\) = memory stability.
+
+After a first successful solve, SOCH initializes memory stability to 1.2 days.
+
+This means estimated retention after one day is approximately 43%.
+
+Rather than waiting for a student to forget an entire concept, SOCH identifies when reinforcement is needed and schedules a targeted revision.
+
+### Recall Rescue: Six-step retrieval ladder
+
+When a student cannot remember a previously solved problem, Recall Coach guides them through six stages:
+
+1. **Cue:** Recognize the problem's important clues.
+2. **Trigger:** Identify the underlying pattern or technique.
+3. **State:** Determine what information needs to be maintained.
+4. **Transition:** Explain how the state changes.
+5. **Base & Order:** Identify base cases and the order of computation.
+6. **Rebuild:** Reconstruct the solution independently.
+
+The final stage is completed only after a real Accepted submission.
+
+A successful recall strengthens topic stability and schedules the next review.
+
+### Time-travel simulation
+
+SOCH includes interactive time-travel controls:
+
+- **+1 day:** Simulate forgetting after one day.
+- **+3 days:** Observe how retention changes.
+- **+10 days:** Simulate a longer study gap.
+
+Students can observe how memory changes, how the dashboard identifies revision needs, and how the Catch-up Planner reorganizes their preparation.
+
+---
+
+## 📚 Personalized learning experiences
+
+SOCH supports three distinct preparation tracks.
+
+### 1. Online Assessment Preparation
+
+Designed for students preparing for company-specific coding assessments.
+
+Students can configure:
+- Target company.
+- Assessment deadline.
+- Expected number of questions.
+- Current proficiency.
+- Preferred programming language.
+- Daily preparation time.
+
+SOCH prioritizes relevant problems, revisions, and timed practice based on the assessment timeline.
+
+### 2. DSA Learning
+
+Designed for students building their DSA foundations.
+
+The platform organizes learning around:
+- Topic prerequisites.
+- Problem-solving patterns.
+- Conceptual understanding.
+- Progressive practice.
+- Spaced revision.
+
+Students can learn at their own pace while SOCH adapts daily tasks to their available time.
+
+### 3. Technical Interview Preparation
+
+Designed for students approaching technical interviews.
+
+The preparation experience includes:
+- Topic-focused problem solving.
+- Interview-style explanations.
+- Complexity analysis.
+- Communication drills.
+- Mock interviews.
+- Personalized feedback reports.
+
+---
+
+## 💻 Practice Arena
+
+The Practice Arena combines coding, evaluation, and intelligent tutoring in one environment.
+
+Students can:
+
+- Write and edit code using Monaco Editor.
+- Practice problems in Java and Python.
+- Run code against test cases.
+- Submit solutions for actual evaluation.
+- Receive compiler errors and Wrong Answer results.
+- Ask the Tutor Agent questions about their implementation.
+- Rebuild incorrect solutions with contextual guidance.
+
+SOCH distinguishes between different types of mistakes, including:
+
+- Conceptual errors.
+- Logic errors.
+- Implementation errors.
+- Complexity issues.
+- Edge-case failures.
+- Communication and explanation gaps.
+
+Code correctness is determined through actual execution, not simply by asking a language model whether a solution looks correct.
+
+---
+
+## 🗺️ ThinkMap 2.0
+
+ThinkMap helps students understand how to approach a DSA problem instead of immediately jumping to the final code.
+
+It organizes problem-solving into five stages:
+
+1. **Understand:** Identify the problem requirements.
+2. **Find Key Ideas:** Recognize relevant patterns and observations.
+3. **Choose Approach:** Select a suitable algorithm.
+4. **Analyze Complexity:** Evaluate time and space complexity.
+5. **Optimized Solution:** Develop and understand the final implementation.
+
+The objective is to develop independent problem-solving ability rather than dependency on generated solutions.
+
+---
+
+## 🔄 Smart Revision and Mistake DNA
+
+### Smart Revision
+
+SOCH uses spaced repetition to reinforce concepts at progressively increasing intervals.
+
+A successful recall advances the revision schedule:
+
+**1 → 3 → 7 → 14 → 30 days**
+
+An incorrect response brings the revision card back after 10 minutes, records a Concept Recall Error, and flags the topic for additional practice.
+
+### Mistake DNA
+
+Mistake DNA identifies recurring weaknesses in a student's problem-solving behavior.
+
+Instead of simply displaying the number of incorrect submissions, SOCH categorizes mistakes to help students understand why they are struggling.
+
+The resulting insights can influence future revision and problem recommendations.
+
+---
+
+## 🏗️ System Architecture
+
+SOCH combines a modern web application, specialized agents, model inference, code execution, and persistent learning data.
+
+### Technology stack
+
+| Layer | Technologies | Purpose |
+|---|---|---|
+| Frontend | React, Vite | Interactive student dashboard and learning interface. |
+| Code Editor | Monaco Editor | Coding and submission experience. |
+| Visual Learning | React Flow | Interactive ThinkMap visualizations. |
+| Backend | Python, FastAPI | API endpoints and application services. |
+| Agent Orchestration | LangGraph | Coordinates agent workflows, state, and conditional decisions. |
+| Workflow Automation | n8n | Automates scheduled tasks, notifications, and service integrations. |
+| Language Model | Qwen 2.5 via Ollama | Local language-model inference for contextual assistance. |
+| Knowledge Retrieval | RAG | Retrieves relevant DSA knowledge to ground model responses. |
+| Database | SQLite, SQLAlchemy | Stores student profiles, progress, tasks, and learning history. |
+| Code Execution | Local sandbox / optional Judge0 | Compiles and evaluates code against test cases. |
+
+### How the system works
+
+1. A student enters their preparation goals, proficiency, language, deadline, and available study time.
+2. The backend retrieves the student's profile, progress, and learning history.
+3. The personalization engine identifies priorities and creates a time-aware learning plan.
+4. LangGraph coordinates the appropriate agent workflow.
+5. Agents use relevant student context, reference knowledge, and available tools to make decisions.
+6. The Tutor Agent can use Qwen 2.5 through Ollama for contextual explanations and guidance.
+7. Submitted code is compiled and executed through the code execution service.
+8. Results are recorded and used to update progress, mistakes, and revision schedules.
+9. The Coach and Catch-up Planner use the updated learning state to guide the next session.
+
+**Important architectural distinction:** LangGraph coordinates agent reasoning and workflow state; n8n handles automation and external workflow integrations. They serve complementary purposes.
+
+---
+
+## 🖥️ Local Model Setup
+
+SOCH supports local inference through Ollama, allowing the platform to use a locally hosted language model without requiring a cloud AI API key for model inference.
+
+Install Ollama:
+
 ```bash
 brew install ollama
-ollama serve                 # or open the Ollama app
-ollama pull qwen2.5:7b       # ~4.7 GB; on an 8 GB Mac use: ollama pull qwen2.5:3b  and  export SOCH_MODEL=qwen2.5:3b
 ```
-The sidebar shows **Agents online · qwen2.5:7b** when everything is connected. Optional settings: `SOCH_MODEL`, `OLLAMA_URL`, and `SOCH_LLM=off` to force offline rules.
 
-## Requirements (macOS)
-
-| Tool | Version | Install |
-|---|---|---|
-| Python | 3.10+ | `brew install python` |
-| Node | 18+ | `brew install node` |
-| **JDK** | 17+ (tested on 21) | `brew install openjdk@21`, then `sudo ln -sfn $(brew --prefix)/opt/openjdk@21/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk` |
-
-Check with `javac -version`. Without a JDK, Run and Submit return a clear *503 "javac not found"* error. They never return a fake result.
-
-## Run
+Start the Ollama service:
 
 ```bash
-# Terminal 1: backend (http://127.0.0.1:8000)
-cd backend
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
+ollama serve
+```
 
-# Terminal 2: frontend (http://localhost:5173)
+Download the recommended model:
+
+```bash
+ollama pull qwen2.5:7b
+```
+
+For an 8 GB Mac, use the smaller model:
+
+```bash
+ollama pull qwen2.5:3b
+```
+
+Configure the model:
+
+```bash
+export SOCH_MODEL=qwen2.5:3b
+```
+
+Optional configuration:
+
+```bash
+export OLLAMA_URL=http://localhost:11434
+export SOCH_LLM=off
+```
+
+Setting `SOCH_LLM=off` disables language-model inference and uses the platform's offline fallback behavior.
+
+---
+
+## 🧩 Project Structure
+
+```text
+SOCH/
+│
+├── backend/
+│   ├── main.py
+│   ├── api/
+│   │   └── routes.py
+│   │
+│   ├── database/
+│   │   ├── db.py
+│   │   ├── models.py
+│   │   └── seed.py
+│   │
+│   ├── services/
+│   │   ├── agents.py
+│   │   ├── personalization_engine.py
+│   │   ├── tutor_engine.py
+│   │   ├── learning_services.py
+│   │   ├── executor.py
+│   │   ├── problem_bank.py
+│   │   └── knowledge.py
+│   │
+│   ├── tests/
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   └── ...
+│   └── package.json
+│
+└── README.md
+```
+
+### Core backend services
+
+- **Personalization Engine:** Calculates topic priorities, daily schedules, readiness, and learning progress.
+- **Agent Services:** Implements specialized agent responsibilities and coordinated decision-making.
+- **Tutor Engine:** Provides offline tutoring support, code analysis, and fallback explanations.
+- **Learning Services:** Handles spaced repetition, error classification, Mistake DNA, and interview evaluation.
+- **Execution Service:** Compiles and evaluates student submissions.
+- **Knowledge Service:** Provides problem-specific reference material, revision cards, roadmaps, ThinkMap content, and interview rubrics.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+| Tool | Minimum version |
+|---|---|
+| Python | 3.10+ |
+| Node.js | 18+ |
+| JDK | 17+ |
+| Ollama | Latest compatible version |
+
+Install the JDK on macOS:
+
+```bash
+brew install openjdk@21
+
+sudo ln -sfn \
+$(brew --prefix)/opt/openjdk@21/libexec/openjdk.jdk \
+/Library/Java/JavaVirtualMachines/openjdk-21.jdk
+```
+
+Verify:
+
+```bash
+javac -version
+```
+
+### Start the backend
+
+```bash
+cd backend
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload
+```
+
+Backend:
+
+```text
+http://127.0.0.1:8000
+```
+
+### Start the frontend
+
+Open a second terminal:
+
+```bash
 cd frontend
+
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173. On first start the backend creates `backend/soch.db` and seeds **Smrithi**, **Dhanya** and **Vismaya**.
+Frontend:
 
-### Optional: Judge0 instead of the local sandbox
-```bash
-export JUDGE0_URL=https://judge0-ce.p.rapidapi.com   # or your self-hosted http://localhost:2358
-export JUDGE0_KEY=<rapidapi key>                        # only for RapidAPI
+```text
+http://localhost:5173
 ```
 
-## Tests
+Open the frontend in your browser.
+
+On the first backend startup, SOCH initializes its local database and loads three demonstration student profiles.
+
+---
+
+## 🧪 Testing and Reliability
+
+SOCH emphasizes real execution and verifiable learning outcomes.
+
+Run the demonstration-flow tests:
 
 ```bash
 cd backend
-SOCH_LLM=off python tests/test_demo_flow.py      # original 3-student demo flow
-SOCH_LLM=off python tests/test_agents.py         # forgetting, Recall Rescue, catch-up, agents (offline fallback)
-# Agent plumbing against a stand-in Ollama (no real model, just the API shape):
+
+SOCH_LLM=off python tests/test_demo_flow.py
+```
+
+Run agent and learning-system tests:
+
+```bash
+SOCH_LLM=off python tests/test_agents.py
+```
+
+Test the agent integration against a local stand-in Ollama service:
+
+```bash
 uvicorn tests.fake_ollama:app --port 11555 &
-OLLAMA_URL=http://127.0.0.1:11555 SOCH_MODEL=fake python tests/test_agents.py
-```
-The tests run the full demo flow for all three users through the API, using real Java compilation. They check Wrong Answer on `(]`, Logic Error classification, the tutor answers, the 15/10/5-minute plan rules, the recall miss, the interview report, profile isolation, logout and real compile errors.
-
-## Demo script
-1. **Smrithi:** on the sign-up screen choose Online Assessment → Zscaler → 7 days → 2 questions → Beginner/Java → 25 min. The dashboard shows the OA countdown, readiness and a plan of Valid Parentheses, Maximum Subarray and one revision. In Practice Arena, use **Demo code → Paste: Counter approach (buggy)** and Submit: it returns Wrong Answer on `(]` and records a Logic Error. Ask *"why is my code failing?"*, paste the Stack solution and Submit to get Accepted. Then do Maximum Subarray, a revision card and Mistake DNA.
-2. **Dhanya:** choose DSA Learning → Hashing → 6 months → 15 min. Solve Two Sum and ask about the HashMap and complexity. Switch the plan between **10m** and **5m** (5m gives revision only). Answer a card wrong in Smart Revision, then open Mistake DNA.
-3. **Vismaya:** choose Technical Interviews → Microsoft → SWE Internship → 3 days → Arrays/Hashing/Stacks → 20 min. Look at the dashboard and the three-day plan, solve Best Time to Buy and Sell Stock, ask follow-ups, then run the Interview Simulator through to the feedback report.
-
-The sign-up card has **Demo presets** that fill in each profile. Signing up again with an existing name updates that profile. **Settings → Reset demo** restores the three original profiles.
-
-## Architecture
-
-```
-backend/
-  main.py                      FastAPI app (lifespan → init_db + seed)
-  api/routes.py                all endpoints (validation + transactions only)
-  database/db.py, models.py    SQLAlchemy + SQLite (StudentProfile, UserPreferences, Problem, UserProblemHistory,
-                               UserCurriculum, DailyTask, RevisionCard, MistakeRecord, InterviewSession, ProgressRecord)
-  database/seed.py             demo profiles, reset
-  services/personalization_engine.py   track/time/topic/problem/revision rules, daily schedule, mastery, XP/streak, readiness
-  services/tutor_engine.py     intent classification, static code analysis, bug detectors, line-by-line explainer
-  services/learning_services.py spaced repetition, error classification, Mistake DNA, interview rubric scoring, analytics
-  services/executor.py         real execution (local sandbox / Judge0), per-test grading
-  services/problem_bank.py     problems, test cases, stdin drivers, demo code presets
-  services/knowledge.py        per-problem tutor knowledge, revision cards, roadmap, ThinkMap, interview rubrics
-frontend/src/
-  pages/  Signup, Dashboard (3 track variants), LearningPath, Practice, ThinkMap, Revision, Calendar,
-          Interview, MockOA, MistakeDNA, Company, Analytics, Settings
-  components/ Shell (sidebar + profile switcher), TodayPlan (time selector), CodeEditor (Monaco, bundled offline), ui
 ```
 
-### Key rules (see `personalization_engine.time_budget`)
-- Under 8 min: revision only (up to 3 cards).
-- 8–19 min: 1 problem (8–9 min) plus revision cards at 2 min each.
-- 20 min or more, OA: `min(questions_expected, (min-5)//10)` timed problems plus 1 short revision.
-- 20 min or more, Interview ≤ 7 days away: 1 problem, recall cards at 1.5 min, 1 communication drill.
-- 20 min or more, Learning: 1 problem (2 if ≥ 35 min) plus prerequisite revision.
-- Problem score combines: topic priority (open mistakes, then declared topics, then current topic), company weight, track frequency, a +50 bonus for a previously failed problem (interview track), a −30 penalty if already solved. Ties break alphabetically, so there is no randomness.
-- Spaced repetition: a correct answer sets the interval to 1, 3, 7, 14, then 30 days. A wrong answer brings the card back in 10 minutes, records a Concept Recall Error and marks the topic for revision.
+In another terminal:
 
-## Notes on the existing AlgoPilot code
-- The email/password login (`AuthPage`, `/api/auth/*`) is removed because the brief asks for no login-first screen. Profiles are chosen through sign-up and the sidebar switcher. The active profile is stored server-side, not in localStorage.
-- `PredefinedResponse` is replaced by the agents (`services/agents.py`). `tutor_engine.py` and `knowledge.py` are now the offline fallback and the reference knowledge the agents use.
-- `mcqs.py` randomness is replaced by the deterministic revision-card bank and priority scoring.
-- The C++ executor is not wired up. Java and Python have drivers.
+```bash
+OLLAMA_URL=http://127.0.0.1:11555 \
+SOCH_MODEL=fake \
+python tests/test_agents.py
+```
+
+The test suite covers:
+
+- The three demonstration student journeys.
+- Real Java compilation and execution.
+- Incorrect bracket validation, including `(]`.
+- Logic-error classification.
+- Tutor responses.
+- Daily time-budget rules.
+- Recall Rescue and failed retrieval.
+- Interview feedback.
+- Student profile isolation.
+- Logout behavior.
+- Compiler errors.
+
+### Execution reliability
+
+SOCH does not treat an unavailable compiler as a successful submission.
+
+If Java compilation is unavailable, the platform returns a clear service error rather than displaying a fabricated Accepted result.
+
+An optional Judge0 integration can be configured:
+
+```bash
+export JUDGE0_URL=https://judge0-ce.p.rapidapi.com
+export JUDGE0_KEY=<your-rapidapi-key>
+```
+
+For a self-hosted Judge0 instance:
+
+```bash
+export JUDGE0_URL=http://localhost:2358
+```
+
+---
+
+## 🎯 Demonstration Scenarios
+
+SOCH includes three demonstration journeys representing different student goals.
+
+### Student 1: Online Assessment — Smrithi
+
+**Goal:** Prepare for the Zscaler Online Assessment in seven days.
+
+- Beginner-level DSA.
+- Java programming.
+- 25 minutes per day.
+- Focus on Valid Parentheses and Maximum Subarray.
+
+The demonstration shows how SOCH detects a faulty bracket-validation implementation, identifies a logic error, guides the student toward a stack-based approach, and updates the learning record after an Accepted submission.
+
+### Student 2: DSA Learning — Dhanya
+
+**Goal:** Build DSA fundamentals over six months.
+
+- Beginner-level DSA.
+- Java programming.
+- 15 minutes per day.
+- Focus on Arrays and Hashing.
+
+The demonstration explores Two Sum, HashMap reasoning, complexity analysis, revision scheduling, and adaptation to shorter study sessions.
+
+### Student 3: Technical Interview — Vismaya
+
+**Goal:** Prepare for a Microsoft SWE Internship interview in three days.
+
+- Beginner-level DSA.
+- Java programming.
+- 20 minutes per day.
+- Focus on Arrays, Hashing, and Stacks.
+
+The demonstration covers interview-oriented preparation, Best Time to Buy and Sell Stock, contextual follow-up questions, and a mock-interview feedback report.
+
+Demo presets are available on the sign-up screen. Existing demonstration profiles can be updated by signing up with the same name.
+
+To restore the original demonstration profiles:
+
+**Settings → Reset Demo**
+
+---
+
+## 🔐 Responsible AI and Reliability
+
+SOCH is designed to make its learning decisions observable and its evaluation results verifiable.
+
+Key safeguards include:
+
+- **Execution-based evaluation:** Code correctness is determined through actual compilation and test execution.
+- **Transparent agent decisions:** Agent Console records observations, decisions, models, and latency.
+- **Offline fallback:** Learning functionality can continue using the platform's offline services when model inference is unavailable.
+- **Student-specific data:** Learning histories and profiles are maintained separately.
+- **Human control:** Students can review and adjust their learning plans rather than being forced to follow every recommendation.
+- **Error awareness:** Compiler failures and unavailable services are reported rather than represented as successful outcomes.
+
+---
+
+## 🌱 Our Vision
+
+We believe DSA preparation should be more than solving hundreds of problems.
+
+Students should understand patterns, recognize their weaknesses, retain what they learn, and develop the confidence to solve unfamiliar problems independently.
+
+SOCH aims to transform preparation from a static checklist into a continuous learning process — one that observes, understands, adapts, and grows with every student.
+
+**SOCH — Don't just solve problems. Learn how to think.**
+
+---
+
+*Built with a focus on personalized learning, agentic workflows, and measurable improvement in problem-solving ability.*
