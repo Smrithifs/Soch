@@ -1,6 +1,4 @@
-# SOCH: agentic DSA preparation (React + FastAPI + local LLM)
-
-SOCH's agents run on a **local model through Ollama**, so there's no API key, no cost, and nothing leaves your Mac. If Ollama isn't running, every agent falls back to deterministic rules, and the UI labels each answer as **✦ agent** or **offline rules**. Code runs for real in a local `javac`/`java` sandbox, or on Judge0 if you configure it.
+# SOCH: agentic DSA preparation
 
 ## The agents
 | Agent | What it does | What it sees |
