@@ -537,6 +537,53 @@ Key safeguards include:
 - **Human control:** Students can review and adjust their learning plans rather than being forced to follow every recommendation.
 - **Error awareness:** Compiler failures and unavailable services are reported rather than represented as successful outcomes.
 
+## 🌍 Impact — Making Every Learning Session Count
+
+SOCH aims to address a fundamental problem in technical education: students spend hours practicing DSA, yet often struggle to retain concepts, identify their weaknesses, and prepare effectively for real-world coding assessments and interviews.
+
+By combining personalized learning, agentic assistance, and adaptive memory, SOCH aims to make preparation more focused, measurable, and accessible.
+
+### Impact on Students
+
+- **Reduced learning gaps:** Identifies conceptual and implementation weaknesses instead of treating every incorrect submission as the same mistake.
+- **Better knowledge retention:** Uses forgetting-curve-based revision and active recall to help students revisit concepts before they are completely forgotten.
+- **Personalized preparation:** Adapts learning plans to individual proficiency, career goals, deadlines, and daily availability.
+- **More effective practice:** Helps students understand why their solutions fail instead of simply revealing the correct answer.
+- **Improved interview readiness:** Encourages students to explain their reasoning, analyze complexity, and communicate solutions confidently.
+- **Accessible learning support:** Provides locally hosted language-model assistance, reducing dependence on cloud AI services when local inference is available.
+
+### Broader Educational Impact
+
+| Challenge | SOCH's contribution |
+|---|---|
+| One-size-fits-all learning | Individualized learning paths |
+| Repeatedly forgetting concepts | Adaptive spaced repetition |
+| Difficulty identifying weaknesses | Mistake DNA and error classification |
+| Lack of personalized guidance | Specialized learning agents |
+| Inefficient preparation after breaks | Intelligent catch-up planning |
+| Limited interview practice | Interview simulations and feedback |
+| Unclear progress | Learning analytics and readiness tracking |
+
+### Long-Term Vision
+
+SOCH aims to make high-quality, personalized DSA preparation accessible beyond students who can afford individual mentorship or expensive coaching programs.
+
+Our vision is to help colleges, coding clubs, and independent learners build a stronger problem-solving culture through continuous feedback, adaptive learning, and measurable progress.
+
+**From solving more problems to becoming better problem solvers — SOCH makes learning more intentional.**
+
+### How We Measure Impact
+
+We intend to evaluate SOCH through measurable outcomes:
+
+1. Improvement in independent problem-solving accuracy.
+2. Retention of previously learned concepts after 1, 3, 7, and 14 days.
+3. Reduction in repeated mistakes across practice sessions.
+4. Completion of personalized daily learning plans.
+5. Improvement in mock-interview evaluation scores.
+6. Student engagement, revision consistency, and retention.
+
+*These are proposed evaluation metrics. Their actual improvement will be established through student pilots and performance data.*
 ---
 
 ## 🌱 Our Vision
