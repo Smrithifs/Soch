@@ -1,4 +1,4 @@
-# Soch
+
 # SOCH — Agentic DSA Learning & Interview Preparation Platform
 
 > *"Soch"* (सोच) means **thought** — SOCH helps students *think* through problems, remember what they learn, and walk into OAs and interviews prepared.
